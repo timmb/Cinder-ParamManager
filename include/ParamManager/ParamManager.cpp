@@ -5,7 +5,7 @@
 //
 //
 
-#include "ParamManager.h"
+#include "ParamManager/ParamManager.h"
 #include "cinder/app/AppBasic.h"
 #include "json/json.h"
 #include <fstream>

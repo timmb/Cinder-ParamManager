@@ -11,6 +11,8 @@ Main features:
 
 Basic Usage:
 
+#include "ParamManager/ParamManager.h"
+
 	ParameterManager pars;
 
 	pars.addParam(std::make_shared<Parameter<int>>(&myVar, "my var", { "Vars" }));
