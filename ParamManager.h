@@ -25,7 +25,7 @@ public:
 	ParamManager();
 	virtual ~ParamManager();
 
-	/// Effectively destroys this instance
+	/// Effectively destroys this instance allowing load and setup to be called again
 	void clear();
 
 	bool load(std::string const& jsonFile);
@@ -51,10 +51,6 @@ public:
 	std::shared_ptr<Parameter<T>> addParam(T* value, std::string const& name, std::vector<std::string> const& path = {}, std::string const& options = "");
 
 	std::shared_ptr<BaseParameter> addButton(std::function<void()> function, std::string const& name, std::vector<std::string> const& path = {}, std::string const& options = "");
-
-	/// path is slash separated list of key names, e.g.
-	/// "/key1/key2".
-	//	Json::Value get(std::string const& basepath) const;
 
 	// callback for all saved parameters, triggers a save on this parameter
 	void callbackParameterChanged()
