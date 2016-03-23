@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<cinder>
+	<block
+		name="ParamManager"
+		id="com.timmb.Cinder-ParamManager"
+		author="Tim Murray-Browne"
+		core="false"
+		>
+
+		<source>BaseParameter.cpp</source>
+		<header>BaseParameter.h</header>
+		<source>Button.cpp</source>
+		<header>Button.h</header>
+		<source>JsonOperators.cpp</source>
+		<header>JsonOperators.h</header>
+		<header>Parameter.h</header>
+		<source>ParamManager.cpp</source>
+		<header>ParamManager.h</header>
+		<includePath>include/ParamManager</includePath>
+
+	</block>
+</cinder>
