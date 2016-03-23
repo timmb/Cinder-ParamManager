@@ -1,5 +1,5 @@
 #pragma once
-#include "json/json.h"
+#include "jsoncpp/json.h"
 #include "cinder/Quaternion.h"
 #include "cinder/Color.h"
 #include <atomic>
@@ -10,11 +10,11 @@ namespace Json
 	bool operator>>(Json::Value const& child, double& value);
 	bool operator>>(Json::Value const& child, float& value);
 	bool operator>>(Json::Value const& child, int& value);
-	bool operator>>(Json::Value const& child, ci::Vec2f& value);
-	bool operator>>(Json::Value const& child, ci::Vec3f& value);
+	bool operator>>(Json::Value const& child, ci::vec2& value);
+	bool operator>>(Json::Value const& child, ci::vec3& value);
 	bool operator>>(Json::Value const& child, std::string& value);
 	bool operator>>(Json::Value const& child, bool& value);
-	bool operator>>(Json::Value const& child, ci::Quatf& value);
+	bool operator>>(Json::Value const& child, ci::quat& value);
 	bool operator>>(Json::Value const& child, ci::ColorA& value);
 	template <typename T>
 	bool operator>>(Json::Value const& child, std::atomic<T>& value)
@@ -41,9 +41,9 @@ namespace Json
 		T t = rhs;
 		return lhs << t;
 	}
-	Json::Value& operator<<(Json::Value& lhs, ci::Vec3f const& rhs);
-	Json::Value& operator<<(Json::Value& lhs, ci::Vec2f const& rhs);
-	Json::Value& operator<<(Json::Value& lhs, ci::Quatf const& rhs);
+	Json::Value& operator<<(Json::Value& lhs, ci::vec3 const& rhs);
+	Json::Value& operator<<(Json::Value& lhs, ci::vec2 const& rhs);
+	Json::Value& operator<<(Json::Value& lhs, ci::quat const& rhs);
 	Json::Value& operator<<(Json::Value& lhs, ci::ColorA const& rhs);
 }
 

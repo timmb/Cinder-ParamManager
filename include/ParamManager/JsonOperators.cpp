@@ -32,7 +32,7 @@ namespace Json
 		return true;
 	}
 
-	bool operator>>(Json::Value const& child, ci::Vec2f& value)
+	bool operator>>(Json::Value const& child, ci::vec2& value)
 	{
 		if (!child.isNull() && child["x"].isConvertibleTo(Json::realValue)
 			&& child["y"].isConvertibleTo(Json::realValue))
@@ -45,7 +45,7 @@ namespace Json
 	}
 
 
-	bool operator>>(Json::Value const& child, ci::Vec3f& value)
+	bool operator>>(Json::Value const& child, ci::vec3& value)
 	{
 		if (!child.isNull() && child["x"].isConvertibleTo(Json::realValue)
 			&& child["y"].isConvertibleTo(Json::realValue)
@@ -76,7 +76,7 @@ namespace Json
 	}
 
 
-	bool operator>>(Value const& child, ci::Quatf& value)
+	bool operator>>(Value const& child, ci::quat& value)
 	{
 		if (!child.isNull()
 			&& child["w"].isConvertibleTo(Json::realValue)
@@ -86,9 +86,9 @@ namespace Json
 			)
 		{
 			value.w = child["w"].asFloat();
-			value.v.x = child["x"].asFloat();
-			value.v.y = child["y"].asFloat();
-			value.v.z = child["z"].asFloat();
+			value.x = child["x"].asFloat();
+			value.y = child["y"].asFloat();
+			value.z = child["z"].asFloat();
 			return true;
 		}
 		return false;
@@ -112,14 +112,14 @@ namespace Json
 		return false;
 	}
 
-	Json::Value& operator<<(Json::Value& lhs, ci::Vec2f const& rhs)
+	Json::Value& operator<<(Json::Value& lhs, ci::vec2 const& rhs)
 	{
 		lhs["x"] = rhs.x;
 		lhs["y"] = rhs.y;
 		return lhs;
 	}
 
-	Json::Value& operator<<(Json::Value& lhs, ci::Vec3f const& rhs)
+	Json::Value& operator<<(Json::Value& lhs, ci::vec3 const& rhs)
 	{
 		lhs["x"] = rhs.x;
 		lhs["y"] = rhs.y;
@@ -127,10 +127,12 @@ namespace Json
 		return lhs;
 	}
 
-	Json::Value& operator<<(Value& lhs, ci::Quatf const& rhs)
+	Json::Value& operator<<(Value& lhs, ci::quat const& rhs)
 	{
-		lhs << rhs.v;
 		lhs["w"] = rhs.w;
+		lhs["x"] = rhs.x;
+		lhs["y"] = rhs.y;
+		lhs["z"] = rhs.z;
 		return lhs;
 	}
 

@@ -1,6 +1,7 @@
 #include "BaseParameter.h"
 #include "JsonOperators.h"
 #include <sstream>
+#include <algorithm>
 using namespace std;
 using namespace ci;
 

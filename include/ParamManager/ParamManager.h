@@ -9,8 +9,8 @@
 
 #include <set>
 #include <atomic>
-#include <boost/thread/recursive_mutex.hpp>
-#include <boost/thread/lock_guard.hpp>
+//#include <boost/thread/recursive_mutex.hpp>
+//#include <boost/thread/lock_guard.hpp>
 #include "BaseParameter.h"
 #include "Parameter.h"
 #include "Button.h"
@@ -63,7 +63,7 @@ private:
 	std::string getStringOption(std::string paramGuiName, std::string const& optionName) const;
 	int getIntOption(std::string paramGuiName, std::string const& optionName) const;
 
-	typedef boost::lock_guard<boost::recursive_mutex> Lock;
+	typedef std::lock_guard<std::recursive_mutex> Lock;
 
 	ci::params::InterfaceGl mParams;
 	std::string mJsonFile;
@@ -73,7 +73,7 @@ private:
 	std::set<std::string> mGuiGroupNames;
 	bool mHasSetupBeenCalled;
 
-	boost::recursive_mutex mMutex;
+	std::recursive_mutex mMutex;
 
 };
 

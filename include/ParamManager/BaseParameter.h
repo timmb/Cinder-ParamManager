@@ -1,15 +1,7 @@
 #pragma once
-#include "json/json.h"
+#include "jsoncpp/json.h"
 #include "cinder/params/Params.h"
-//#include "cinder/Cinder.h"
-//#include <boost/tokenizer.hpp>
-//#include <atomic>
-//#include "cinder/app/App.h"
-//#include <boost/thread/recursive_mutex.hpp>
-//#include <boost/thread/lock_guard.hpp>
 #include <set>
-//#include "cinder/Quaternion.h"
-//#include "BaseParameter.h"
 #include <functional>
 #include <vector>
 #include <string>

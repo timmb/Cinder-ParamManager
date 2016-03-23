@@ -73,7 +73,7 @@ protected:
 	int mPrevValue;
 	void updateEnum() {}
 	void cleanUpEnum() {}
-	boost::signals2::connection mUpdateSignalConnection;
+	ci::signals::Connection mUpdateSignalConnection;
 	bool mIsUpdateSignalConnected;
 };
 

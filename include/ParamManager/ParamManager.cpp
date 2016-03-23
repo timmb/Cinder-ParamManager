@@ -1,13 +1,13 @@
 //
-//  Params.cpp
+//  ParamManager.cpp
 //
 //  Created by Tim Murray-Browne on 2014-04-06.
 //
 //
 
 #include "ParamManager/ParamManager.h"
-#include "cinder/app/AppBasic.h"
-#include "json/json.h"
+#include "cinder/app/AppBase.h"
+//#include "json/json.h"
 #include <fstream>
 #include <iostream>
 #include <ctime>
@@ -50,7 +50,7 @@ bool ParamManager::load(string const& filename)
 	try {
 		in >> mRoot;
 	}
-	catch (std::runtime_error& e)
+	catch (std::runtime_error&)
 	{
 		cerr << ("Error parsing json file " + filename, "Settings") << endl;
 		success = false;
@@ -80,7 +80,7 @@ void ParamManager::snapshot()
 	char buf[128];
 	strftime(buf, sizeof(buf), "-%Y-%m-%d-%H-%M-%S", now);
 
-	int extensionPos = mJsonFile.find(".json");
+	int extensionPos = (int)mJsonFile.find(".json");
 	string filestem = mJsonFile.substr(0, extensionPos);
 
 	save(filestem + buf + ".json");
@@ -124,9 +124,9 @@ void ParamManager::setup()
 
 	mHasSetupBeenCalled = true;
 
-	Vec2i size(350, 420);
-	mParams = params::InterfaceGl("Params", Vec2i(size));
-	mParams.setPosition(Vec2i(app::getWindowWidth() - size.x, 0));
+	ivec2 size(350, 420);
+	mParams = params::InterfaceGl("Params", ivec2(size));
+	mParams.setPosition(ivec2(app::getWindowWidth() - size.x, 0));
 	mParams.addButton("Save", std::bind((void (ParamManager::*)())&ParamManager::save, this));
 	mParams.addButton("Save snapshot", std::bind(&ParamManager::snapshot, this));
 	map<string, string> groupParents;
@@ -234,7 +234,7 @@ namespace
 				target += "/`" + std::move(paramName) + "`";
 
 			std::vector<char> outBuffer(1024, '\0');
-			int stringLength = TwGetParam(mBar.get(), target.c_str(), optionName.c_str(), TW_PARAM_CSTRING, outBuffer.size(), outBuffer.data());
+			int stringLength = TwGetParam(mBar.get(), target.c_str(), optionName.c_str(), TW_PARAM_CSTRING, (unsigned int)outBuffer.size(), outBuffer.data());
 			assert(stringLength <= outBuffer.size());
 			return std::string(begin(outBuffer), begin(outBuffer) + stringLength);
 		}
