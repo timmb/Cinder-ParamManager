@@ -11,6 +11,7 @@ namespace Json
 	bool operator>>(Json::Value const& child, float& value);
 	bool operator>>(Json::Value const& child, int& value);
 	bool operator>>(Json::Value const& child, ci::Vec2f& value);
+	bool operator>>(Json::Value const& child, ci::Vec2i& value);
 	bool operator>>(Json::Value const& child, ci::Vec3f& value);
 	bool operator>>(Json::Value const& child, std::string& value);
 	bool operator>>(Json::Value const& child, bool& value);
@@ -43,6 +44,7 @@ namespace Json
 	}
 	Json::Value& operator<<(Json::Value& lhs, ci::Vec3f const& rhs);
 	Json::Value& operator<<(Json::Value& lhs, ci::Vec2f const& rhs);
+	Json::Value& operator<<(Json::Value& lhs, ci::Vec2i const& rhs);
 	Json::Value& operator<<(Json::Value& lhs, ci::Quatf const& rhs);
 	Json::Value& operator<<(Json::Value& lhs, ci::ColorA const& rhs);
 }

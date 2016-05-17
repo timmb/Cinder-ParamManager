@@ -44,6 +44,18 @@ namespace Json
 		return false;
 	}
 
+	bool operator>>(Json::Value const& child, ci::Vec2i& value)
+	{
+		if (!child.isNull() && child["x"].isConvertibleTo(Json::intValue)
+			&& child["y"].isConvertibleTo(Json::intValue))
+		{
+			value.x = child["x"].asInt();
+			value.y = child["y"].asInt();
+			return true;
+		}
+		return false;
+	}
+
 
 	bool operator>>(Json::Value const& child, ci::Vec3f& value)
 	{
@@ -113,6 +125,13 @@ namespace Json
 	}
 
 	Json::Value& operator<<(Json::Value& lhs, ci::Vec2f const& rhs)
+	{
+		lhs["x"] = rhs.x;
+		lhs["y"] = rhs.y;
+		return lhs;
+	}
+
+	Json::Value& operator<<(Json::Value& lhs, ci::Vec2i const& rhs)
 	{
 		lhs["x"] = rhs.x;
 		lhs["y"] = rhs.y;
