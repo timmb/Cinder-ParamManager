@@ -32,7 +32,7 @@ ParamManager::~ParamManager()
 void ParamManager::clear()
 {
 	Lock lock(mMutex);
-	mParams = params::InterfaceGl();
+	interfaceGl = params::InterfaceGl();
 	mParameters.clear();
 	mRoot = Json::Value();
 	mHasSetupBeenCalled = false;
@@ -125,10 +125,10 @@ void ParamManager::setup()
 	mHasSetupBeenCalled = true;
 
 	Vec2i size(350, 420);
-	mParams = params::InterfaceGl("Params", Vec2i(size));
-	mParams.setPosition(Vec2i(app::getWindowWidth() - size.x, 0));
-	mParams.addButton("Save", std::bind((void (ParamManager::*)())&ParamManager::save, this));
-	mParams.addButton("Save snapshot", std::bind(&ParamManager::snapshot, this));
+	interfaceGl = params::InterfaceGl("Params", Vec2i(size));
+	interfaceGl.setPosition(Vec2i(app::getWindowWidth() - size.x, 0));
+	interfaceGl.addButton("Save", std::bind((void (ParamManager::*)())&ParamManager::save, this));
+	interfaceGl.addButton("Save snapshot", std::bind(&ParamManager::snapshot, this));
 	map<string, string> groupParents;
 	Json::Value& paramsRoot = mRoot["params"];
 	//std::string temp = paramsRoot.toStyledString();
@@ -165,21 +165,21 @@ void ParamManager::setup()
 		}
 		if ((**it).isSaved)
 		{
-			(**it).setup(mParams, [&]() { callbackParameterChanged(); });
+			(**it).setup(interfaceGl, [&]() { callbackParameterChanged(); });
 		}
 		else
 		{
-			(**it).setup(mParams);
+			(**it).setup(interfaceGl);
 		}
 	}
 	for (auto kv : groupParents)
 	{
-		mParams.setOptions(kv.first, "group="+kv.second);
+		interfaceGl.setOptions(kv.first, "group="+kv.second);
 	}
 	for (string const& group : mGuiGroupNames)
 	{
 		bool const opened = mRoot["groups"][group]["opened"].isIntegral() ? (mRoot["groups"][group]["opened"].asInt() > 0) : false;
-			mParams.setOptions(group, opened?"opened=true" : "opened=false");
+			interfaceGl.setOptions(group, opened?"opened=true" : "opened=false");
 	}
 }
 
@@ -198,7 +198,7 @@ void ParamManager::addParam(std::shared_ptr<BaseParameter> parameter)
 	{
 		if (parameter->isSaved)
 		{
-			parameter->setup(mParams, [&]() { callbackParameterChanged(); });
+			parameter->setup(interfaceGl, [&]() { callbackParameterChanged(); });
 			if (parameter->readJson(mRoot))
 			{
 				parameter->callbackFunction();
@@ -206,7 +206,7 @@ void ParamManager::addParam(std::shared_ptr<BaseParameter> parameter)
 		}
 		else
 		{
-			parameter->setup(mParams);
+			parameter->setup(interfaceGl);
 		}
 	}
 }
@@ -262,13 +262,13 @@ namespace
 
 std::string ParamManager::getStringOption(std::string paramName, std::string const& optionName) const
 {
-	InterfaceGlWithGetOption const& p = reinterpret_cast<InterfaceGlWithGetOption const&>(mParams);
+	InterfaceGlWithGetOption const& p = reinterpret_cast<InterfaceGlWithGetOption const&>(interfaceGl);
 	return p.getStringOption(std::move(paramName), optionName);
 }
 
 int ParamManager::getIntOption(std::string paramName, std::string const& optionName) const 
 {
-	InterfaceGlWithGetOption const& p = reinterpret_cast<InterfaceGlWithGetOption const&>(mParams);
+	InterfaceGlWithGetOption const& p = reinterpret_cast<InterfaceGlWithGetOption const&>(interfaceGl);
 	return p.getIntOption(std::move(paramName), optionName);
 }
 
@@ -282,7 +282,7 @@ void ParamManager::removeParam(std::shared_ptr<BaseParameter> parameter)
 		mParameters.erase(it);
 		it = find(begin(mParameters), end(mParameters), parameter);
 	}
-	parameter->removeFrom(mParams);
+	parameter->removeFrom(interfaceGl);
 }
 
 
@@ -290,7 +290,7 @@ void ParamManager::draw()
 {
 	Lock lock(mMutex);
 
-	mParams.draw();
+	interfaceGl.draw();
 }
 
 

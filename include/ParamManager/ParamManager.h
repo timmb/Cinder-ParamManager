@@ -58,6 +58,7 @@ public:
 		save();
 	}
 
+	ci::params::InterfaceGl interfaceGl;
 
 private:
 	std::string getStringOption(std::string paramGuiName, std::string const& optionName) const;
@@ -65,7 +66,6 @@ private:
 
 	typedef boost::lock_guard<boost::recursive_mutex> Lock;
 
-	ci::params::InterfaceGl mParams;
 	std::string mJsonFile;
 	Json::Value mRoot;
 
